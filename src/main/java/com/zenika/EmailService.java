@@ -21,7 +21,7 @@ public class EmailService {
 	public void send(EmailNotification email) throws Exception {
 		LOGGER.info("about to process {}",email);
 		Thread.sleep(2000L); // simulates latency
-//		LOGGER.info("{} has been sent",email);
+		LOGGER.info("{} has been sent",email);
 		counter.incrementAndGet();
 	}
 	

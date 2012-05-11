@@ -11,7 +11,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
-import org.springframework.integration.core.MessagingOperations;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -23,7 +22,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration
 public class SpringIntegrationMongoTest {
 
-	@Autowired MessagingOperations msgTpl;
+	@Autowired EmailGateway emailGateway;
 	
 	@Autowired MongoOperations mongoTpl;
 	
@@ -37,7 +36,7 @@ public class SpringIntegrationMongoTest {
 	@Test public void springIntegrationMongo() throws Exception {
 		int messageCount = 5; 
 		for(int i=0;i<messageCount;i++) {
-			msgTpl.convertAndSend(new EmailNotification("mickey@mouse.com","Message from Minnie "+i,"Minnie is waiting for you!"));
+			emailGateway.send(new EmailNotification("mickey@mouse.com","Message from Minnie "+i,"Minnie is waiting for you!"));
 		}
 		long wait = 0;
 		while(emailService.getCount() != messageCount && wait <= 5000) {
